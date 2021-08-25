@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { commerce } from './lib/commerce';
-import { Productos, Navbar } from './components';
+import { Productos, Navbar, Carrito } from './components';
 import { CardMembershipTwoTone } from '@material-ui/icons';
 
 const App = () => {
@@ -38,8 +38,8 @@ const App = () => {
     return (
         <div>
             <Navbar totalItems={cart.total_items}/>
-            <Productos productos = {productos} agregarACarrito={handleAgregarACarrito}/>
-            {/* <Carrito carrito/> */}
+            {/* <Productos productos = {productos} agregarACarrito={handleAgregarACarrito}/> */}
+            <Carrito cart={cart}/>
         </div>
     )
 }
