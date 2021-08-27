@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { commerce } from './lib/commerce';
 import { Productos, Navbar, Carrito } from './components';
-import { CardMembershipTwoTone } from '@material-ui/icons';
+
 
 const App = () => {
     //Estado donde guardamos los productos
@@ -9,7 +10,7 @@ const App = () => {
     //Es el estado que permite ver el num en el carrito cuando voy agregando productos
     const [cart, setCarrito] = useState({})
 
-    const fetchProductos = async () =>  {
+    const fetchProductos = async () => {
         const { data } = await commerce.products.list();
 
         //voy guardando todos los datos que me trae en productos
@@ -32,18 +33,27 @@ const App = () => {
         fetchProductos();
         fetchCarrito();
     }, []);
-    
+
     console.log(cart);
 
     return (
-        <div>
-            <Navbar totalItems={cart.total_items}/>
-            {/* <Productos productos = {productos} agregarACarrito={handleAgregarACarrito}/> */}
-            <Carrito cart={cart}/>
-        </div>
+        <Router>
+            <div>
+                <Navbar totalItems={cart.total_items} />
+                <Switch>
+                    <Route  exact path="/">
+                        <Productos productos = {productos} agregarACarrito={handleAgregarACarrito}/>
+                    </Route>
+                    <Route  exact path="/carrito">
+                        <Carrito cart={cart} />
+                    </Route>
+                </Switch>        
+               
+            </div>
+
+        </Router>
     )
 }
 
 export default App
 
-  
