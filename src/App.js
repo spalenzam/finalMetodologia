@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { commerce } from './lib/commerce';
-import { Productos, Navbar, Carrito } from './components';
+import { Productos, Navbar, Carrito, Finalizar } from './components';
 
 
 const App = () => {
@@ -23,8 +23,23 @@ const App = () => {
 
     //Función que agrega al carrito los productos 
     const handleAgregarACarrito = async (productoId, cantidad) => {
-        const item = await commerce.cart.add(productoId, cantidad);
-        setCarrito(item.cart);
+        const { cart } = await commerce.cart.add(productoId, cantidad);
+        setCarrito(cart);
+    }
+
+    const handleModificarCantidad = async (productId, cantidad) =>{
+        const { cart } = await commerce.cart.update(productId, { cantidad });
+        setCarrito(cart);
+    }
+
+    const handleEliminarItems = async (productId) =>{
+        const { cart } = await commerce.cart.remove(productId);
+        setCarrito(cart);
+    }
+
+    const handleVaciar = async () =>{
+        const { cart } = await commerce.cart.empty();
+        setCarrito(cart);
     }
 
     //solo se ejecutara al ppio del renderizado
@@ -45,7 +60,15 @@ const App = () => {
                         <Productos productos = {productos} agregarACarrito={handleAgregarACarrito}/>
                     </Route>
                     <Route  exact path="/carrito">
-                        <Carrito cart={cart} />
+                        <Carrito 
+                        cart={cart} 
+                        handleModificarCantidad={handleModificarCantidad}
+                        handleEliminarItems={handleEliminarItems}
+                        handleVaciar={handleVaciar}
+                        />
+                    </Route>
+                    <Route  exact path="/finalizar">
+                        <Finalizar></Finalizar>
                     </Route>
                 </Switch>        
                

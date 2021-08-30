@@ -11,16 +11,16 @@ export default makeStyles((theme) => ({
       marginLeft: drawerWidth,
     },
   },
-  title: {
+  titulo: {
     flexGrow: 1,
     alignItems: 'center',
     display: 'flex',
     textDecoration: 'none',
   },
-  image: {
+  imagen: {
     marginRight: '10px',
   },
-  menuButton: {
+  menuBoton: {
     marginRight: theme.spacing(2),
     [theme.breakpoints.up('sm')]: {
       display: 'none',
@@ -29,7 +29,7 @@ export default makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
   },
-  search: {
+  buscar: {
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
     backgroundColor: fade(theme.palette.common.white, 0.15),
@@ -43,7 +43,7 @@ export default makeStyles((theme) => ({
       width: 'auto',
     },
   },
-  searchIcon: {
+  iconoBuscar: {
     padding: theme.spacing(0, 2),
     height: '100%',
     position: 'absolute',
