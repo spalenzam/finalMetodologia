@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Paper, Stepper, Step, StepLabel, Typograohy, CircularProgress, Divider, Button, Typography } from '@material-ui/core';
+import FormDireccion from '../FormDireccion';
+import FormPago from '../FormPago';
 import useStyles from './styles';
 
 const steps = ['Shipping address', 'Payment details'];
@@ -8,6 +10,14 @@ const Finalizar = () => {
 
     const classes = useStyles();
     const [activo, setActivo] = useState(0);    
+
+    const Form = () => activo === 0 ? <FormDireccion /> : <FormPago />
+
+    const Confirmacion = () => (
+        <div>
+            Confirmación
+        </div>
+    )
 
     return (
         <>
@@ -24,6 +34,7 @@ const Finalizar = () => {
                         </Step>
                     ))}
                 </Stepper>
+                {activo === steps.length ? <Confirmacion/> : <Form/>}
             </Paper>
         </main>
             
