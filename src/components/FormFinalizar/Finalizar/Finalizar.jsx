@@ -1,17 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Paper, Stepper, Step, StepLabel, Typograohy, CircularProgress, Divider, Button, Typography } from '@material-ui/core';
 import FormDireccion from '../FormDireccion';
 import FormPago from '../FormPago';
 import useStyles from './styles';
+import { commerce } from '../../../lib/commerce';
 
 const steps = ['Shipping address', 'Payment details'];
 
-const Finalizar = () => {
+const Finalizar = ({ cart }) => {
 
     const classes = useStyles();
-    const [activo, setActivo] = useState(0);    
+    const [checkoutToken, setCheckoutToken] = useState (null);
+    const [activo, setActivo] = useState(0);  
+     
 
-    const Form = () => activo === 0 ? <FormDireccion /> : <FormPago />
+    useEffect(() => {
+        const generarToken = async () => {
+            try {
+                const token = await commerce.checkout.generateToken(cart.id, { type: 'cart'});
+                console.log(cart);
+                setCheckoutToken(token);
+            } catch (error){
+
+            }
+        }
+
+        generarToken();
+
+    }, [cart]);
+
+    const Form = () => activo === 0 ? <FormDireccion checkoutToken={checkoutToken}/> : <FormPago />
 
     const Confirmacion = () => (
         <div>
@@ -34,7 +52,7 @@ const Finalizar = () => {
                         </Step>
                     ))}
                 </Stepper>
-                {activo === steps.length ? <Confirmacion/> : <Form/>}
+                {activo === steps.length ? <Confirmacion/> : checkoutToken && <Form/>}
             </Paper>
         </main>
             
