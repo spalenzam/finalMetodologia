@@ -9,6 +9,8 @@ const App = () => {
     const [productos, setProductos] = useState([]);
     //Es el estado que permite ver el num en el carrito cuando voy agregando productos
     const [cart, setCarrito] = useState({})
+    const [order, setOrder] = useState({});
+    const [mensjError, setMensjError] = useState('');
 
     const fetchProductos = async () => {
         const { data } = await commerce.products.list();
@@ -27,13 +29,13 @@ const App = () => {
         setCarrito(cart);
     }
 
-    const handleModificarCantidad = async (productId, cantidad) =>{
-        const { cart } = await commerce.cart.update(productId, { cantidad });
+    const handleModificarCantidad = async (productoId, quantity) =>{
+        const { cart } = await commerce.cart.update(productoId, { quantity });
         setCarrito(cart);
     }
 
-    const handleEliminarItems = async (productId) =>{
-        const { cart } = await commerce.cart.remove(productId);
+    const handleEliminarItems = async (productoId) =>{
+        const { cart } = await commerce.cart.remove(productoId);
         setCarrito(cart);
     }
 
@@ -41,6 +43,24 @@ const App = () => {
         const { cart } = await commerce.cart.empty();
         setCarrito(cart);
     }
+
+    const rerfrescarCarrito = async () => {
+        const limpio = await commerce.cart.refresh();
+
+        setCarrito(limpio);
+    }
+
+    const handleFinalizar = async (checkoutTokenId, nuevaOrden) => {
+        try {
+          const ordenActual = await commerce.checkout.capture(checkoutTokenId, nuevaOrden);
+    
+          setOrder(ordenActual);
+    
+          rerfrescarCarrito();
+        } catch (error) {
+            setMensjError(error.data.error.message);
+        }
+      };
 
     //solo se ejecutara al ppio del renderizado
     //llamo a la función para que me traiga la lista de productos de commerce
@@ -62,13 +82,18 @@ const App = () => {
                     <Route  exact path="/carrito">
                         <Carrito 
                         cart={cart} 
-                        handleModificarCantidad={handleModificarCantidad}
-                        handleEliminarItems={handleEliminarItems}
-                        handleVaciar={handleVaciar}
+                        handleModificarCantidad = {handleModificarCantidad}
+                        handleEliminarItems = {handleEliminarItems}
+                        handleVaciar = {handleVaciar}
                         />
                     </Route>
                     <Route  exact path="/finalizar">
-                        <Finalizar cart={cart} />
+                        <Finalizar 
+                            cart={cart} 
+                            order={order}
+                            onFinalizar={handleFinalizar}
+                            error={mensjError}
+                        />
                     </Route>
                 </Switch>        
                

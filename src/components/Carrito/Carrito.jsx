@@ -27,6 +27,7 @@ const Carrito = ({ cart, handleModificarCantidad, handleEliminarItems, handleVac
                     </Grid>
                 ))}
             </Grid>
+
             <div className={classes.detalles}>
                     <Typography variant="h4">
                         Subtotal: {cart.subtotal.formatted_with_symbol}
@@ -48,7 +49,7 @@ const Carrito = ({ cart, handleModificarCantidad, handleEliminarItems, handleVac
     return (
         <Container>
             <div className={classes.barra} />
-            <Typography className={classes.titulo} variant="h3" gutterBottom>Your Shopping Cart</Typography>
+            <Typography className={classes.titulo} variant="h3" gutterBottom>Tu compra</Typography>
             { !cart.line_items.length ? <CarritoVacio/> : <CarritoLleno/> }
         </Container>
     )

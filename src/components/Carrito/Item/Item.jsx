@@ -6,15 +6,12 @@ const Item = ({ item, onModificarCantidad, onEliminarItems }) => {
 
     const classes = useStyles();
 
-    console.log((item.quantity) + 1);
-    console.log(item.quantity);
-
     return (
         <Card>
             <CardMedia image={item.media.source} alt={item.name} className={classes.media} />
             <CardContent className={classes.contenido}>
-                <Typography variant="h4">{item.name}</Typography>
-                <Typography variant="h5">{item.line_total.formatted_with_symbol}</Typography>
+                <Typography variant="h5" >{item.name}</Typography>
+                <Typography variant="h6" color="textSecondary">{item.line_total.formatted_with_symbol}</Typography>
             </CardContent>
 
             <CardActions className={classes.acciones}>
@@ -30,7 +27,7 @@ const Item = ({ item, onModificarCantidad, onEliminarItems }) => {
                     </Button>
                     
                 </div>
-                <Button variant="contained" type="button" color="secondary" onClick={() => onEliminarItems(item.id)}>
+                <Button variant="contained" type="button" color="primary" onClick={() => onEliminarItems(item.id)}>
                     Eliminar
                 </Button>
             </CardActions>

@@ -2,7 +2,7 @@ import React from 'react';
 import { AppBar, Toolbar, IconButton, Badge, MenuItem, Menu, Typography } from '@material-ui/core';
 import { ShoppingCart } from '@material-ui/icons';
 import { Link, useLocation } from 'react-router-dom';
-import logo from '../../assets/commerce.png';
+import logo from '../../assets/123-1234123_free-download-red-wine-stain-png.png';
 import useStyles from './styles';
 
 
@@ -17,7 +17,7 @@ const Navbar = ({ totalItems }) => {
                 <Toolbar>
                     <Typography component={Link} to="/" variant="h6" className={classes.titulo} color="inherit">
                         <img src={logo} alt="Commerce.js" height="25px" className={classes.imagen} />
-                        Commerce.js
+                        VINOTECA
                     </Typography>
                     <div className={classes.grow} />
                     {ubicacion.pathname === '/' ? (

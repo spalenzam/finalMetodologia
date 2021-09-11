@@ -5,7 +5,7 @@ export default makeStyles(() => ({
     height: 250,
   },
   contenido: {
-    display: 'flex',
+   
     justifyContent: 'space-between',
   },
   acciones: {
