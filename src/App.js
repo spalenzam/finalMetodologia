@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { commerce } from './lib/commerce';
-import { Productos, Navbar, Carrito, Finalizar } from './components';
+import { Productos, Navbar, Carrito, Finalizar, Vinoteca, Bodega } from './components';
 
 
 const App = () => {
@@ -94,6 +94,12 @@ const App = () => {
                             onFinalizar={handleFinalizar}
                             error={mensjError}
                         />
+                    </Route>
+                    <Route  exact path="/vinoteca">
+                        <Vinoteca/>
+                    </Route>
+                    <Route  exact path="/bodega">
+                        <Bodega />
                     </Route>
                 </Switch>        
                

@@ -12,7 +12,7 @@ export default makeStyles((theme) => ({
     },
   },
   titulo: {
-    flexGrow: 1,
+    flexGrow: 2,
     alignItems: 'center',
     display: 'flex',
     textDecoration: 'none',
